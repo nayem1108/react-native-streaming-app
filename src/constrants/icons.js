@@ -1,0 +1,22 @@
+import volume from '../assets/icons/volume.png';
+import play from '../assets/icons/play.png';
+import backword from '../assets/icons/backwardpng.png';
+import movies from '../assets/icons/clapperboard.png';
+import tvShows from '../assets/icons/tv-show.png';
+import forword from '../assets/icons/forward.png';
+import account from '../assets/icons/user.png';
+import subtitle from '../assets/icons/subtitle.png';
+import settings from '../assets/icons/setting.png';
+import videos from '../assets/icons/play.png';
+import mute from '../assets/icons/mute.png';
+import fullscreen from '../assets/icons/fullscreenpng.png';
+import fullscreenExit from '../assets/icons/fullscreen-exit.png';
+import search from '../assets/icons/search.png';
+import pause from '../assets/icons/pause.png';
+import check from '../assets/icons/check.png';
+import back from '../assets/icons/back.png';
+import brightness from '../assets/icons/brightness.png';
+import volume1 from '../assets/icons/volume1.png';
+import volumeS from '../assets/icons/volume-s.png';
+
+export default { volume, play, backword, movies, forword, tvShows, account, subtitle, settings, videos, mute, fullscreen, fullscreenExit, search, pause, check, back, brightness, volume1, volumeS };

@@ -75,17 +75,28 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 android {
     ndkVersion rootProject.ext.ndkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
-    compileSdk rootProject.ext.compileSdkVersion
+
+    // Update compileSdkVersion directly here or in root project
+    compileSdk 35 // Change this to 35
 
     namespace "com.netflixclone"
     defaultConfig {
         applicationId "com.netflixclone"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        targetSdkVersion 35 // Change this to 35
         versionCode 1
         versionName "1.0"
     }
+
     signingConfigs {
+        release {
+            if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+                storeFile file(MYAPP_UPLOAD_STORE_FILE)
+                storePassword MYAPP_UPLOAD_STORE_PASSWORD
+                keyAlias MYAPP_UPLOAD_KEY_ALIAS
+                keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+            }
+        }
         debug {
             storeFile file('debug.keystore')
             storePassword 'android'
@@ -93,14 +104,13 @@ android {
             keyPassword 'android'
         }
     }
+
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
         }
         release {
-            // Caution! In production, you need to generate your own keystore file.
-            // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
@@ -108,12 +118,74 @@ android {
 }
 
 dependencies {
-    // The version of react-native is set by the React Native Gradle Plugin
+    implementation project(':react-native-async-storage_async-storage')
     implementation("com.facebook.react:react-android")
-
+    implementation project(':react-native-vector-icons')
+    
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
     }
 }
+
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
+
+
+// android {
+//     ndkVersion rootProject.ext.ndkVersion
+//     buildToolsVersion rootProject.ext.buildToolsVersion
+//     compileSdk rootProject.ext.compileSdkVersion
+
+//     namespace "com.netflixclone"
+//     defaultConfig {
+//         applicationId "com.netflixclone"
+//         minSdkVersion rootProject.ext.minSdkVersion
+//         targetSdkVersion rootProject.ext.targetSdkVersion
+//         versionCode 1
+//         versionName "1.0"
+//     }
+//     signingConfigs {
+//         release {
+//             if (project.hasProperty('MYAPP_UPLOAD_STORE_FILE')) {
+//                 storeFile file(MYAPP_UPLOAD_STORE_FILE)
+//                 storePassword MYAPP_UPLOAD_STORE_PASSWORD
+//                 keyAlias MYAPP_UPLOAD_KEY_ALIAS
+//                 keyPassword MYAPP_UPLOAD_KEY_PASSWORD
+//             }
+//         }
+//         debug {
+//             storeFile file('debug.keystore')
+//             storePassword 'android'
+//             keyAlias 'androiddebugkey'
+//             keyPassword 'android'
+//         }
+//     }
+//     buildTypes {
+//         debug {
+//             signingConfig signingConfigs.debug
+//         }
+//         release {
+//             // Caution! In production, you need to generate your own keystore file.
+//             // see https://reactnative.dev/docs/signed-apk-android.
+//             signingConfig signingConfigs.debug
+//             minifyEnabled enableProguardInReleaseBuilds
+//             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+//             signingConfig signingConfigs.release
+
+//         }
+//     }
+// // }
+
+// dependencies {
+//     // The version of react-native is set by the React Native Gradle Plugin
+//     implementation("com.facebook.react:react-android")
+//     implementation project(':react-native-vector-icons')
+//     if (hermesEnabled.toBoolean()) {
+//         implementation("com.facebook.react:hermes-android")
+//     } else {
+//         implementation jscFlavor
+//     }
+// }
+
+// apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
