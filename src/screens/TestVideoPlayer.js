@@ -73,13 +73,12 @@ const TestVideoPlayer = () => {
 
     const handleMediaSound = () => {
         if (isMute) {
-            // If muted, unmute by restoring previous volume (if volume is 0, set a default)
+
             setIsMute(false);
             if (volume === 0) {
-                setVolume(50); // Set default volume when unmuting if volume is 0
+                setVolume(50);
             }
         } else {
-            // If not muted, mute and set volume to 0
             setIsMute(true);
             setVolume(0);
         }
